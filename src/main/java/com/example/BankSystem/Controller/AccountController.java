@@ -21,10 +21,14 @@ public class AccountController {
         } catch (Exception e) {
             return "Account added Failed";
         }
+
+
     } @RequestMapping(value = "getBalanceForAccount", method = RequestMethod.GET)
     public double getBalanceForAccount(@RequestParam Integer id) {
     return accountService.getBalanceForAccount(id);
     }
+
+
 
 
 
