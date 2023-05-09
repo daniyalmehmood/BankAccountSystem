@@ -1,12 +1,13 @@
 package com.example.BankSystem.Controller;
 
+import com.example.BankSystem.Model.Account;
 import com.example.BankSystem.Model.Customer;
 import com.example.BankSystem.RequestObject.UpdateCustomerInfo;
+import com.example.BankSystem.Service.AccountService;
 import com.example.BankSystem.Service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 @RestController
@@ -14,6 +15,9 @@ public class CustomerController {
 
     @Autowired
     CustomerService customerService;
+
+    @Autowired
+    AccountService accountService;
 
 
     @RequestMapping(value = "addCustomer", method = RequestMethod.POST)
@@ -42,6 +46,12 @@ public class CustomerController {
         return customers;
     }
 
+    @RequestMapping(value = "getCustomerAccountInformation", method = RequestMethod.GET)
+    public List<Account> getCustomerAccountInformation(Integer customerId) {
+        List<Account> accountList = accountService.getCustomerAccountInformation(customerId);
+        return accountList;
+    }
+
     @RequestMapping(value = "deleteCustomer", method = RequestMethod.POST)
     public String deleteCustomer(@RequestParam Integer id) {
         try {
@@ -51,8 +61,6 @@ public class CustomerController {
             return "Customer Updated Failed";
         }
     }
-
-
 
 
 }
