@@ -30,4 +30,9 @@ public class AccountService {
         accountRepository.save(accountInfo);
 
     }
+
+    public double getBalanceForAccount(Integer id) {
+     return accountRepository.getBalanceForAccount(id);
+
+    }
 }

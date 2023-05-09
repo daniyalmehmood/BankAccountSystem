@@ -5,10 +5,7 @@ import com.example.BankSystem.Model.Customer;
 import com.example.BankSystem.RequestObject.AccountRequest;
 import com.example.BankSystem.Service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class AccountController {
@@ -24,6 +21,9 @@ public class AccountController {
         } catch (Exception e) {
             return "Account added Failed";
         }
+    } @RequestMapping(value = "getBalanceForAccount", method = RequestMethod.GET)
+    public double getBalanceForAccount(@RequestParam Integer id) {
+    return accountService.getBalanceForAccount(id);
     }
 
 
