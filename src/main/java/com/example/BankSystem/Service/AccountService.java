@@ -2,13 +2,17 @@ package com.example.BankSystem.Service;
 
 import com.example.BankSystem.Model.Account;
 import com.example.BankSystem.Model.Customer;
+import com.example.BankSystem.Model.Transaction;
 import com.example.BankSystem.Repository.AccountRepository;
 import com.example.BankSystem.Repository.CustomerRepository;
+import com.example.BankSystem.Repository.TransactionRepository;
 import com.example.BankSystem.RequestObject.AccountRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 
@@ -19,6 +23,9 @@ public class AccountService {
     AccountRepository accountRepository;
     @Autowired
     CustomerRepository customerRepository;
+
+    @Autowired
+    TransactionRepository transactionRepository;
     public void addAccount(AccountRequest account) {
         Double interestVariable = 2.5; // variable for interest
         Account accountInfo = new Account();
@@ -52,5 +59,11 @@ public class AccountService {
                 "\n Account Balance :"+account.getBalance();
 
         return statementOfAccount;
+    }
+
+    public List<Transaction> getAccountHistoryWithTransaction(Integer id) {
+        Account account = accountRepository.findById(id).get(); // get the account ID
+        List<Transaction> transactionList =transactionRepository.findByAccount(account); //get the Transaction ID from Account
+        return  transactionList;
     }
 }
