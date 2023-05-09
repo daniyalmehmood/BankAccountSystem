@@ -5,6 +5,7 @@ import com.example.BankSystem.Model.Customer;
 import com.example.BankSystem.RequestObject.AccountRequest;
 import com.example.BankSystem.Service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -23,14 +24,17 @@ public class AccountController {
         }
 
 
-    } @RequestMapping(value = "getBalanceForAccount", method = RequestMethod.GET)
-    public double getBalanceForAccount(@RequestParam Integer id) {
-    return accountService.getBalanceForAccount(id);
     }
 
+    @RequestMapping(value = "getBalanceForAccount", method = RequestMethod.GET)
+    public double getBalanceForAccount(@RequestParam Integer id) {
+        return accountService.getBalanceForAccount(id);
+    }
 
-
-
-
+    @RequestMapping(value = "makeMonthlyStatement", method = RequestMethod.GET)
+    public ResponseEntity<String> makeMonthlyStatement(@RequestParam Integer accountId) {
+        String statement = accountService.makeMonthlyStatement(accountId);
+        return ResponseEntity.ok(statement);
+    }
 
 }

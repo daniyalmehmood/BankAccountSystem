@@ -8,6 +8,8 @@ import com.example.BankSystem.RequestObject.AccountRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
 @Service
 
 
@@ -34,5 +36,21 @@ public class AccountService {
     public double getBalanceForAccount(Integer id) {
      return accountRepository.getBalanceForAccount(id);
 
+    }
+
+    public String makeMonthlyStatement(Integer accountId) {
+        Account account = accountRepository.findById(accountId).get();
+        Customer customer = account.getCustomer();
+        LocalDate localDate = LocalDate.now();
+        LocalDate statementDate = LocalDate.of(localDate.getYear(), localDate.getMonth(),1);
+
+        String statementOfAccount = "Monthly Statement Of Account :"+account.getAccountNumber()+
+                "\n Customer Name :"+customer.getName() +
+                "\n Customer Email :"+customer.getEmail()+
+                "\n Customer Phone :"+customer.getPhone()+
+                "\n Date"+"\t"+localDate.getYear()+"\t"+localDate.getMonth()+"\t"+localDate.getDayOfMonth()+
+                "\n Account Balance :"+account.getBalance();
+
+        return statementOfAccount;
     }
 }
